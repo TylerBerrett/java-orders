@@ -1,8 +1,11 @@
 package local.tylerb.orders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "agents")
@@ -18,7 +21,10 @@ public class Agents {
     private String phone;
     private String country;
 
-    // probs need some sort of table here
+
+    @OneToMany(mappedBy = "agents", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("agents")
+    private List<Customers> customers = new ArrayList<>();
 
     public Agents(String agentname, String workingarea, double commission, String phone, String country) {
         this.agentname = agentname;
