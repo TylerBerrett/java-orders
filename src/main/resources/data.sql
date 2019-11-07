@@ -82,5 +82,5 @@ INSERT INTO ORDERSPAYMENTS (ordnum, paymentid)
                            (10, 4),
                            (11, 2),
                            (12, 1);
-                           
+
 alter sequence hibernate_sequence restart with 50;

@@ -3,6 +3,8 @@ package local.tylerb.orders.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -14,6 +16,7 @@ public class Customers {
 
     @Column(nullable = false)
     private String custname;
+
     private String custcity;
     private String workingarea;
     private String custcountry;
@@ -28,6 +31,11 @@ public class Customers {
     @JoinColumn(name = "agentcode",
             nullable = false)
     private Agents agents;
+
+    @OneToMany(mappedBy = "customers", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("customers")
+    private List<Orders> orders = new ArrayList<>();
+
 
     public Customers(){}
 
@@ -130,5 +138,22 @@ public class Customers {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    // do I want to get agents
+    public Agents getAgents() {
+        return agents;
+    }
+
+    public void setAgents(Agents agents) {
+        this.agents = agents;
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
     }
 }

@@ -27,10 +27,13 @@ public class Orders {
         this.orderdescription = orderdescription;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "custcode", nullable = false)
+    private Customers customers;
 
     @ManyToMany
-    @JoinTable(name = "orderspayment",
-                joinColumns = @JoinColumn(name = "ordernum"),
+    @JoinTable(name = "orderspayments",
+                joinColumns = @JoinColumn(name = "ordnum"),
                 inverseJoinColumns = @JoinColumn(name = "paymentid")
                 )
     @JsonIgnoreProperties("orders")
@@ -68,5 +71,13 @@ public class Orders {
 
     public void setOrderdescription(String orderdescription) {
         this.orderdescription = orderdescription;
+    }
+
+    public List<Payments> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payments> payments) {
+        this.payments = payments;
     }
 }

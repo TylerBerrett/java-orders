@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "agents")
 public class Agents {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
@@ -25,6 +26,8 @@ public class Agents {
     @OneToMany(mappedBy = "agents", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("agents")
     private List<Customers> customers = new ArrayList<>();
+
+    public Agents(){}
 
     public Agents(String agentname, String workingarea, double commission, String phone, String country) {
         this.agentname = agentname;
@@ -80,5 +83,13 @@ public class Agents {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public List<Customers> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customers> customers) {
+        this.customers = customers;
     }
 }
